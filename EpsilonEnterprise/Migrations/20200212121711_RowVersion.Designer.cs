@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EpsilonEnterprise.Migrations
 {
     [DbContext(typeof(BusinessContext))]
-    [Migration("20200209141730_ComplexDataModel")]
-    partial class ComplexDataModel
+    [Migration("20200212121711_RowVersion")]
+    partial class RowVersion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,17 +24,6 @@ namespace EpsilonEnterprise.Migrations
             modelBuilder.Entity("EpsilonEnterprise.Models.Assignment", b =>
                 {
                     b.Property<int>("AssignmentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AssignmentID1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AssignmentID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BossID")
                         .HasColumnType("int");
 
                     b.Property<int>("Credits")
@@ -43,19 +32,20 @@ namespace EpsilonEnterprise.Migrations
                     b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OfficeAssignmentBossID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("AssignmentID");
 
-                    b.HasIndex("AssignmentID1");
-
-                    b.HasIndex("BossID");
-
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("Assignments");
+                    b.HasIndex("OfficeAssignmentBossID");
+
+                    b.ToTable("Assignment");
                 });
 
             modelBuilder.Entity("EpsilonEnterprise.Models.AssignmentAssignment", b =>
@@ -68,9 +58,12 @@ namespace EpsilonEnterprise.Migrations
 
                     b.HasKey("AssignmentID", "BossID");
 
+                    b.HasIndex("AssignmentID")
+                        .IsUnique();
+
                     b.HasIndex("BossID");
 
-                    b.ToTable("Assignment");
+                    b.ToTable("AssignmentAssignment");
                 });
 
             modelBuilder.Entity("EpsilonEnterprise.Models.Boss", b =>
@@ -109,15 +102,17 @@ namespace EpsilonEnterprise.Migrations
                     b.Property<int?>("BossID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BossID")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Budget")
                         .HasColumnType("money");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -196,31 +191,27 @@ namespace EpsilonEnterprise.Migrations
 
             modelBuilder.Entity("EpsilonEnterprise.Models.Assignment", b =>
                 {
-                    b.HasOne("EpsilonEnterprise.Models.Assignment", null)
-                        .WithMany("Assignments")
-                        .HasForeignKey("AssignmentID1");
-
-                    b.HasOne("EpsilonEnterprise.Models.Boss", null)
-                        .WithMany("Assignments")
-                        .HasForeignKey("BossID");
-
                     b.HasOne("EpsilonEnterprise.Models.Department", "Department")
                         .WithMany("Assignments")
                         .HasForeignKey("DepartmentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EpsilonEnterprise.Models.OfficeAssignment", "OfficeAssignment")
+                        .WithMany()
+                        .HasForeignKey("OfficeAssignmentBossID");
                 });
 
             modelBuilder.Entity("EpsilonEnterprise.Models.AssignmentAssignment", b =>
                 {
                     b.HasOne("EpsilonEnterprise.Models.Assignment", "Assignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentID")
+                        .WithOne("AssignmentAssignments")
+                        .HasForeignKey("EpsilonEnterprise.Models.AssignmentAssignment", "AssignmentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EpsilonEnterprise.Models.Boss", "Boss")
-                        .WithMany()
+                        .WithMany("AssignmentAssignments")
                         .HasForeignKey("BossID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -7,7 +7,7 @@ namespace EpsilonEnterprise.Models.EnterpriseViewModels
 {
     public class BossIndexData
     {
-        public IEnumerable<Bosses> Bosses { get; set; }
+        public IEnumerable<Boss> Boss { get; set; }
         public IEnumerable<Assignment> Assignments { get; set; }
         public IEnumerable<Enrollment> Enrollments { get; set; }
        

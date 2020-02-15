@@ -30,13 +30,13 @@ namespace EpsilonEnterprise.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "AssingmentID",
+                name: "AssignmentID",
                 table: "Assignments",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
-                name: "BossesID",
+                name: "BossID",
                 table: "Assignments",
                 nullable: true);
 
@@ -132,9 +132,9 @@ namespace EpsilonEnterprise.Migrations
                 column: "AssignmentID1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Assignments_BossesID",
+                name: "IX_Assignments_BossID",
                 table: "Assignments",
-                column: "BossesID");
+                column: "BossID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignments_DepartmentID",
@@ -160,9 +160,9 @@ namespace EpsilonEnterprise.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Assignments_Boss_BossesID",
+                name: "FK_Assignments_Boss_BossID",
                 table: "Assignments",
-                column: "BossesID",
+                column: "BossID",
                 principalTable: "Boss",
                 principalColumn: "ID",
                 onDelete: ReferentialAction.Restrict);
@@ -183,7 +183,7 @@ namespace EpsilonEnterprise.Migrations
                 table: "Assignments");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Assignments_Boss_BossesID",
+                name: "FK_Assignments_Boss_BossID",
                 table: "Assignments");
 
             migrationBuilder.DropForeignKey(
@@ -207,7 +207,7 @@ namespace EpsilonEnterprise.Migrations
                 table: "Assignments");
 
             migrationBuilder.DropIndex(
-                name: "IX_Assignments_BossesID",
+                name: "IX_Assignments_BossID",
                 table: "Assignments");
 
             migrationBuilder.DropIndex(
@@ -219,11 +219,11 @@ namespace EpsilonEnterprise.Migrations
                 table: "Assignments");
 
             migrationBuilder.DropColumn(
-                name: "AssingmentID",
+                name: "AssignmentID",
                 table: "Assignments");
 
             migrationBuilder.DropColumn(
-                name: "BossesID",
+                name: "BossID",
                 table: "Assignments");
 
             migrationBuilder.DropColumn(

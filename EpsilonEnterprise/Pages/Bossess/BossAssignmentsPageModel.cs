@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace EpsilonEnterprise.Pages.Bossess
+namespace EpsilonEnterprise.Pages.Bosss
 {
     public class BossAssignmentsPageModel : PageModel
     {
@@ -14,7 +14,7 @@ namespace EpsilonEnterprise.Pages.Bossess
         public List<AssignedAssignmentData> AssignedCourseDataList;
 
         public void PopulateAssignedCourseData(BusinessContext context,
-                                               Bosses instructor)
+                                               Boss instructor)
         {
             var allCourses = context.Assignments;
             var instructorCourses = new HashSet<int>(
@@ -32,7 +32,7 @@ namespace EpsilonEnterprise.Pages.Bossess
         }
 
         public void UpdateBossAssignments(BusinessContext context,
-            string[] selectedCourses, Bosses instructorToUpdate)
+            string[] selectedCourses, Boss instructorToUpdate)
         {
             if (selectedCourses == null)
             {

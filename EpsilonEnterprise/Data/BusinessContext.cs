@@ -18,7 +18,7 @@ namespace EpsilonEnterprise.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<Bosses> Boss { get; set; }
+        public DbSet<Boss> Boss { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<AssignmentAssignment> AssignmentAssignment { get; set; }
 
@@ -29,7 +29,7 @@ namespace EpsilonEnterprise.Data
             modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
             modelBuilder.Entity<Employee>().ToTable("Employee");
             modelBuilder.Entity<Department>().ToTable("Department");
-            modelBuilder.Entity<Bosses>().ToTable("Boss");
+            modelBuilder.Entity<Boss>().ToTable("Boss");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignment");
             modelBuilder.Entity<AssignmentAssignment>().ToTable("AssignmentAssignment");
 

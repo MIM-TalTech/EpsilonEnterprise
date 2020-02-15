@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using EpsilonEnterprise.Data;
 using EpsilonEnterprise.Models;
 
-namespace EpsilonEnterprise.Pages.Bossess
+namespace EpsilonEnterprise.Pages.Bosss
 {
     public class EditModel : BossAssignmentsPageModel
     {
@@ -21,7 +21,7 @@ namespace EpsilonEnterprise.Pages.Bossess
         }
 
         [BindProperty]
-        public Bosses Bosses { get; set; }
+        public Boss Boss { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,17 +30,17 @@ namespace EpsilonEnterprise.Pages.Bossess
                 return NotFound();
             }
 
-            Bosses = await _context.Boss
+            Boss = await _context.Boss
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.AssignmentAssignments).ThenInclude(i => i.Assignment)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Bosses == null)
+            if (Boss == null)
             {
                 return NotFound();
             }
-            PopulateAssignedCourseData(_context, Bosses);
+            PopulateAssignedCourseData(_context, Boss);
             return Page();
         }
 
@@ -64,7 +64,7 @@ namespace EpsilonEnterprise.Pages.Bossess
                 return NotFound();
             }
 
-            if (await TryUpdateModelAsync<Bosses>(
+            if (await TryUpdateModelAsync<Boss>(
                 bossToUpdate,
                 "Instructor",
                 i => i.FirstMidName, i => i.LastName,

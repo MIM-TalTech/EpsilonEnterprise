@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EpsilonEnterprise.Models
 {
-    public class Bosses
+    public class Boss
     {
         public int ID { get; set; }
 
@@ -33,8 +33,8 @@ namespace EpsilonEnterprise.Models
             get { return LastName + ", " + FirstMidName; }
         }
 
-        public ICollection<Assignment> Assignments { get; set; }
+        public ICollection<AssignmentAssignment> AssignmentAssignments { get; set; }
         public OfficeAssignment OfficeAssignment { get; set; }
-        public AssignmentAssignment AssignmentAssignments { get; set; }
+    
     }
 }

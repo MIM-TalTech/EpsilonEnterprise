@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EpsilonEnterprise.Data
 {
@@ -34,21 +36,21 @@ namespace EpsilonEnterprise.Data
                 context.Employees.Add(s);
             }
             context.SaveChanges();
-            var boss = new Bosses[]
+            var boss = new Boss[]
             {
-                new Bosses { FirstMidName = "Kim",     LastName = "Abercrombie",
+                new Boss { FirstMidName = "Kim",     LastName = "Abercrombie",
                     HireDate = DateTime.Parse("1995-03-11") },
-                new Bosses { FirstMidName = "Fadi",    LastName = "Fakhouri",
+                new Boss { FirstMidName = "Fadi",    LastName = "Fakhouri",
                     HireDate = DateTime.Parse("2002-07-06") },
-                new Bosses { FirstMidName = "Roger",   LastName = "Harui",
+                new Boss { FirstMidName = "Roger",   LastName = "Harui",
                     HireDate = DateTime.Parse("1998-07-01") },
-                new Bosses { FirstMidName = "Candace", LastName = "Kapoor",
+                new Boss { FirstMidName = "Candace", LastName = "Kapoor",
                     HireDate = DateTime.Parse("2001-01-15") },
-                new Bosses { FirstMidName = "Roger",   LastName = "Zheng",
+                new Boss { FirstMidName = "Roger",   LastName = "Zheng",
                     HireDate = DateTime.Parse("2004-02-12") }
             };
 
-            foreach (Bosses i in boss)
+            foreach (Boss i in boss)
             {
                 context.Boss.Add(i);
             }

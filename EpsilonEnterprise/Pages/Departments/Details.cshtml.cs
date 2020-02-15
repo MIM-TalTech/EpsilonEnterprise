@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EpsilonEnterprise.Data;
 using EpsilonEnterprise.Models;
 
-namespace EpsilonEnterprise.Pages.Bosss
+namespace EpsilonEnterprise
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace EpsilonEnterprise.Pages.Bosss
             _context = context;
         }
 
-        public Boss Boss { get; set; }
+        public Department Department { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,10 @@ namespace EpsilonEnterprise.Pages.Bosss
                 return NotFound();
             }
 
-            Boss = await _context.Boss.FirstOrDefaultAsync(m => m.ID == id);
+            Department = await _context.Departments
+                .Include(d => d.Administrator).FirstOrDefaultAsync(m => m.DepartmentID == id);
 
-            if (Boss == null)
+            if (Department == null)
             {
                 return NotFound();
             }

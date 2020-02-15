@@ -60,7 +60,7 @@ namespace EpsilonEnterprise.Pages.Assignmentss
 
             if (await TryUpdateModelAsync<Assignment>(
                  assignmentToUpdate,
-                 "course",   // Prefix for form value.
+                 "assignment",   // Prefix for form value.
                    c => c.Credits, c => c.DepartmentID, c => c.Title))
             {
                 await _context.SaveChangesAsync();
@@ -73,9 +73,6 @@ namespace EpsilonEnterprise.Pages.Assignmentss
            
         }
 
-        private bool AssignmentExists(int id)
-        {
-            return _context.Assignments.Any(e => e.AssignmentID == id);
-        }
+        
     }
 }

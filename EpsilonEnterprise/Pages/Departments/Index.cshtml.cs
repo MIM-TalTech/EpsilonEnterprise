@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EpsilonEnterprise.Data;
 using EpsilonEnterprise.Models;
 
-namespace EpsilonEnterprise.Pages.Assignmentss
+namespace EpsilonEnterprise
 {
     public class IndexModel : PageModel
     {
@@ -19,12 +19,12 @@ namespace EpsilonEnterprise.Pages.Assignmentss
             _context = context;
         }
 
-        public IList<Assignment> Assignment { get;set; }
+        public IList<Department> Department { get;set; }
 
         public async Task OnGetAsync()
         {
-            Assignment = await _context.Assignments
-                .Include(a => a.Department).AsNoTracking().ToListAsync();
+            Department = await _context.Departments
+                .Include(d => d.Administrator).ToListAsync();
         }
     }
 }

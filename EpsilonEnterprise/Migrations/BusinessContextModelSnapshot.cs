@@ -22,17 +22,6 @@ namespace EpsilonEnterprise.Migrations
             modelBuilder.Entity("EpsilonEnterprise.Models.Assignment", b =>
                 {
                     b.Property<int>("AssignmentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AssignmentID1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AssingmentID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BossesID")
                         .HasColumnType("int");
 
                     b.Property<int>("Credits")
@@ -47,13 +36,9 @@ namespace EpsilonEnterprise.Migrations
 
                     b.HasKey("AssignmentID");
 
-                    b.HasIndex("AssignmentID1");
-
-                    b.HasIndex("BossesID");
-
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("Assignments");
+                    b.ToTable("Assignment");
                 });
 
             modelBuilder.Entity("EpsilonEnterprise.Models.AssignmentAssignment", b =>
@@ -68,10 +53,10 @@ namespace EpsilonEnterprise.Migrations
 
                     b.HasIndex("BossID");
 
-                    b.ToTable("Assignment");
+                    b.ToTable("AssignmentAssignment");
                 });
 
-            modelBuilder.Entity("EpsilonEnterprise.Models.Bosses", b =>
+            modelBuilder.Entity("EpsilonEnterprise.Models.Boss", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -104,9 +89,6 @@ namespace EpsilonEnterprise.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AdministratorID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("BossID")
                         .HasColumnType("int");
 
@@ -117,12 +99,17 @@ namespace EpsilonEnterprise.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("DepartmentID");
 
-                    b.HasIndex("AdministratorID");
+                    b.HasIndex("BossID");
 
                     b.ToTable("Department");
                 });
@@ -194,14 +181,6 @@ namespace EpsilonEnterprise.Migrations
 
             modelBuilder.Entity("EpsilonEnterprise.Models.Assignment", b =>
                 {
-                    b.HasOne("EpsilonEnterprise.Models.Assignment", null)
-                        .WithMany("Assignments")
-                        .HasForeignKey("AssignmentID1");
-
-                    b.HasOne("EpsilonEnterprise.Models.Bosses", null)
-                        .WithMany("Assignments")
-                        .HasForeignKey("BossesID");
-
                     b.HasOne("EpsilonEnterprise.Models.Department", "Department")
                         .WithMany("Assignments")
                         .HasForeignKey("DepartmentID")
@@ -212,13 +191,13 @@ namespace EpsilonEnterprise.Migrations
             modelBuilder.Entity("EpsilonEnterprise.Models.AssignmentAssignment", b =>
                 {
                     b.HasOne("EpsilonEnterprise.Models.Assignment", "Assignment")
-                        .WithMany()
+                        .WithMany("AssignmentAssignments")
                         .HasForeignKey("AssignmentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EpsilonEnterprise.Models.Bosses", "Boss")
-                        .WithMany()
+                    b.HasOne("EpsilonEnterprise.Models.Boss", "Boss")
+                        .WithMany("AssignmentAssignments")
                         .HasForeignKey("BossID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -226,9 +205,9 @@ namespace EpsilonEnterprise.Migrations
 
             modelBuilder.Entity("EpsilonEnterprise.Models.Department", b =>
                 {
-                    b.HasOne("EpsilonEnterprise.Models.Bosses", "Administrator")
+                    b.HasOne("EpsilonEnterprise.Models.Boss", "Administrator")
                         .WithMany()
-                        .HasForeignKey("AdministratorID");
+                        .HasForeignKey("BossID");
                 });
 
             modelBuilder.Entity("EpsilonEnterprise.Models.Enrollment", b =>
@@ -248,7 +227,7 @@ namespace EpsilonEnterprise.Migrations
 
             modelBuilder.Entity("EpsilonEnterprise.Models.OfficeAssignment", b =>
                 {
-                    b.HasOne("EpsilonEnterprise.Models.Bosses", "Boss")
+                    b.HasOne("EpsilonEnterprise.Models.Boss", "Boss")
                         .WithOne("OfficeAssignment")
                         .HasForeignKey("EpsilonEnterprise.Models.OfficeAssignment", "BossID")
                         .OnDelete(DeleteBehavior.Cascade)

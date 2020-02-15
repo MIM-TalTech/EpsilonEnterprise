@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using EpsilonEnterprise.Data;
 using EpsilonEnterprise.Models;
 
-namespace EpsilonEnterprise.Pages.Bossess
+namespace EpsilonEnterprise.Pages.Bosss
 
 {
     public class CreateModel : BossAssignmentsPageModel
@@ -22,7 +22,7 @@ namespace EpsilonEnterprise.Pages.Bossess
 
         public IActionResult OnGet()
         {
-            var instructor = new Bosses();
+            var instructor = new Boss();
             instructor.AssignmentAssignments = new List<AssignmentAssignment>();
 
             // Provides an empty collection for the foreach loop
@@ -33,11 +33,11 @@ namespace EpsilonEnterprise.Pages.Bossess
         }
 
         [BindProperty]
-        public Bosses Bosses { get; set; }
+        public Boss Boss { get; set; }
 
         public async Task<IActionResult> OnPostAsync(string[] selectedCourses)
         {
-            var newInstructor = new Bosses();
+            var newInstructor = new Boss();
             if (selectedCourses != null)
             {
                 newInstructor.AssignmentAssignments = new List<AssignmentAssignment>();
@@ -51,9 +51,9 @@ namespace EpsilonEnterprise.Pages.Bossess
                 }
             }
 
-            if (await TryUpdateModelAsync<Bosses>(
+            if (await TryUpdateModelAsync<Boss>(
                 newInstructor,
-                "Instructor",
+                "Boss",
                 i => i.FirstMidName, i => i.LastName,
                 i => i.HireDate, i => i.OfficeAssignment))
             {

@@ -12,7 +12,7 @@ namespace EpsilonEnterprise.Models
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Number")]
-        public int AssingmentID { get; set; }
+        public int AssignmentID { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
         public string Title { get; set; }
@@ -24,11 +24,8 @@ namespace EpsilonEnterprise.Models
 
         public Department Department { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
-        public ICollection<Assignment> Assignments { get; set; }
-        public int AssignmentID { get; internal set; }
-
-        public OfficeAssignment OfficeAssignment { get; set; }
-
-        public AssignmentAssignment AssignmentAssignment { get; set; }
+ 
+        public ICollection<AssignmentAssignment> AssignmentAssignments { get; set; }
+      
     }
 }

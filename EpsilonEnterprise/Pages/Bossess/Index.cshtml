@@ -1,8 +1,8 @@
 ﻿@page "{id:int?}"
-@model EpsilonEnterprise.Pages.Bossess.IndexModel
+@model EpsilonEnterprise.Pages.Bosss.IndexModel
 
 @{
-    ViewData["Title"] = "Bosses";
+    ViewData["Title"] = "Boss";
 }
 
 <h2>Bosses</h2>
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.BossData.Bosses)
+        @foreach (var item in Model.Boss.Boss)
         {
             string selectedRow = "";
             if (item.ID == Model.BossID)
@@ -48,7 +48,7 @@
         }
     </tbody>
 </table>
-@if (Model.BossData.Assignments != null)
+@if (Model.Boss.Assignments != null)
 {
     <h3>Assignments Overlooked by Selected Boss</h3>
     <table class="table">
@@ -59,7 +59,7 @@
             <th>Department</th>
         </tr>
 
-        @foreach (var item in Model.BossData.Assignments)
+        @foreach (var item in Model.Boss.Assignments)
         {
             string selectedRow = "";
             if (item.AssignmentID == Model.AssignmentID)
@@ -85,7 +85,7 @@
     </table>
 }
 
-@if (Model.BossData.Enrollments != null)
+@if (Model.Boss.Enrollments != null)
 {
     <h3>
         Employees Enrolled in Selected Assignment
@@ -95,7 +95,7 @@
             <th>Name</th>
             <th>Grade</th>
         </tr>
-        @foreach (var item in Model.BossData.Enrollments)
+        @foreach (var item in Model.Boss.Enrollments)
         {
             <tr>
                 <td>

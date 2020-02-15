@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EpsilonEnterprise.Data;
 using EpsilonEnterprise.Models;
 
-namespace EpsilonEnterprise.Pages.Bossess
+namespace EpsilonEnterprise.Pages.Bosss
 
 {
     public class DeleteModel : PageModel
@@ -21,7 +21,7 @@ namespace EpsilonEnterprise.Pages.Bossess
         }
 
         [BindProperty]
-        public Bosses Bosses { get; set; }
+        public Boss Boss { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +30,9 @@ namespace EpsilonEnterprise.Pages.Bossess
                 return NotFound();
             }
 
-            Bosses = await _context.Boss.FirstOrDefaultAsync(m => m.ID == id);
+            Boss = await _context.Boss.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Bosses == null)
+            if (Boss == null)
             {
                 return NotFound();
             }
@@ -46,8 +46,8 @@ namespace EpsilonEnterprise.Pages.Bossess
                 return NotFound();
             }
 
-            Bosses = await _context.Boss.FindAsync(id);
-            Bosses instructor = await _context.Boss
+            Boss = await _context.Boss.FindAsync(id);
+            Boss instructor = await _context.Boss
                 .Include(i => i.AssignmentAssignments)
                 .SingleAsync(i => i.ID == id);
 

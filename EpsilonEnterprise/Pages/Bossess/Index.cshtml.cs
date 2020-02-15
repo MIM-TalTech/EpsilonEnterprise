@@ -9,7 +9,7 @@ using EpsilonEnterprise.Data;
 using EpsilonEnterprise.Models;
 using EpsilonEnterprise.Models.EnterpriseViewModels;
 
-namespace EpsilonEnterprise.Pages.Bossess
+namespace EpsilonEnterprise.Pages.Bosss
 {
     public class IndexModel : PageModel
     {
@@ -19,14 +19,14 @@ namespace EpsilonEnterprise.Pages.Bossess
         {
             _context = context;
         }
-        public BossIndexData BossData { get; set; }
+        public BossIndexData Boss { get; set; }
         public int BossID { get; set; }
         public int AssignmentID { get; set; }
 
         public async Task OnGetAsync(int? id, int? assignmentID)
         {
-            BossData = new BossIndexData();
-            BossData.Bosses = await _context.Boss
+            Boss = new BossIndexData();
+            Boss.Boss = await _context.Boss
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.AssignmentAssignments)
                     .ThenInclude(i => i.Assignment)
@@ -42,22 +42,22 @@ namespace EpsilonEnterprise.Pages.Bossess
             if (id != null)
             {
                 BossID = id.Value;
-                Bosses boss = BossData.Bosses
+                Boss boss = Boss.Boss
                     .Where(i => i.ID == id.Value).Single();
-                BossData.Assignments = boss.AssignmentAssignments.Select(s => s.Assignment);
+                Boss.Assignments = boss.AssignmentAssignments.Select(s => s.Assignment);
             }
 
             if (assignmentID != null)
             {
                 AssignmentID = assignmentID.Value;
-                var selectedCourse = BossData.Assignments
+                var selectedCourse = Boss.Assignments
                     .Where(x => x.AssignmentID == assignmentID).Single();
                 await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
                 foreach (Enrollment enrollment in selectedCourse.Enrollments)
                 {
                     await _context.Entry(enrollment).Reference(x => x.Employee).LoadAsync();
                 }
-                BossData.Enrollments = selectedCourse.Enrollments;
+                Boss.Enrollments = selectedCourse.Enrollments;
             }
         }
     }

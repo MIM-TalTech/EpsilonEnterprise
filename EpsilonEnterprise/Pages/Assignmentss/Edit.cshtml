@@ -13,6 +13,7 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Assignment.AssignmentID" />
             < <div class="form-group">
                 <label asp-for="Assignment.AssignmentID" class="control-label"></label>
                 <div>@Html.DisplayFor(model => model.Assignment.AssignmentID)</div>
@@ -32,7 +33,7 @@
             <select asp-for="Assignment.DepartmentID" class="form-control"
                     asp-items="@Model.DepartmentNameSL"></select>
             <span asp-validation-for="Assignment.DepartmentID" class="text-danger"></span>
-            <input type="hidden" asp-for="Assignment.AssignmentID" />
+          
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

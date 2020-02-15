@@ -25,10 +25,12 @@ namespace EpsilonEnterprise.Models
 
         public int? BossID { get; set; }
 
-        public Bosses Boss { get; set; }
-        public ICollection<Assignment> Assignments { get; set; }
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        public Boss Administrator { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
+       
     }
     
 }
